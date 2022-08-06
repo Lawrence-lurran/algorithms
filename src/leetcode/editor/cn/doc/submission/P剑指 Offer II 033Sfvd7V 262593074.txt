@@ -1,0 +1,55 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res=new ArrayList<>();
+        boolean[] haveDone=new boolean[strs.length];
+        for (int i = 0; i < strs.length; i++) {
+            if (haveDone[i]){
+                continue;
+            }
+            List<String> temp=new ArrayList<>();
+            temp.add(strs[i]);
+            for (int j = i+1; j < strs.length; j++) {
+                if (haveDone[j]){
+                    continue;
+                }
+                if (anagrams(strs[i],strs[j])){
+                    haveDone[j]=true;
+                    temp.add(strs[j]);
+                }
+            }
+            res.add(temp);
+        }
+        return res;
+    }
+    public boolean anagrams(String s,String t){
+        Map<Character,Integer> latters=new HashMap<>();
+        int lenS=s.length();
+        int lenT=t.length();
+
+        if (lenS!=lenT){
+            return false;
+        }
+        for (int i = 0; i < lenS; i++) {
+            latters.put(s.charAt(i),latters.getOrDefault(s.charAt(i),0)+1);
+            latters.put(t.charAt(i),latters.getOrDefault(t.charAt(i),0)-1);
+        }
+        for (Map.Entry<Character, Integer> entry : latters.entrySet()) {
+            if (entry.getValue()!=0){
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+}
+
+//runtime:N/A
+//memory:N/A
+//total_testcases:114
+//total_correct:114
+//input_formatted:
+//expected_output:
+//code_output:
+//runtime_error:
+//last_testcase:

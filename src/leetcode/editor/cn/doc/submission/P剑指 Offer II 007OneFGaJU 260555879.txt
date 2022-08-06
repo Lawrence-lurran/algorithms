@@ -1,0 +1,47 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res=new ArrayList<>();
+        int len=nums.length;
+        if (len==0){
+            return res;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < len-2; ) {
+
+            int target=0-nums[i];
+            int left=i+1;
+            int right=len-1;
+            while (left<right){
+                List<Integer> temp=new ArrayList<>();
+                int sum=nums[left]+nums[right];
+                if (sum==target){
+                    temp.add(nums[left]);
+                    temp.add(nums[right]);
+                    temp.add(nums[i]);
+                    res.add(temp);
+                    int oldLeft=nums[left];
+                    while (nums[left]==oldLeft && left<right){
+                        left++;
+                    }
+                }
+                if (sum<target){
+                    left++;
+                }
+                if (nums[left]+nums[right]>target){
+                    right--;
+                }
+            }
+            int old=nums[i];
+            while (nums[i]==old && i<len){
+                i++;
+            }
+        }
+        return res;
+    }
+}
+
+//runtime_error:java.lang.ArrayIndexOutOfBoundsException: Index 3 out of bounds for length 3
+  at line 35, Solution.threeSum
+  at line 54, __DriverSolution__.__helper__
+  at line 84, __Driver__.main
+//last_testcase:[0,0,0]

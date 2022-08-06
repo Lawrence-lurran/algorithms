@@ -1,0 +1,53 @@
+class Solution {
+        public int countHighestScoreNodes(int[] parents) {
+            Map<Integer,Integer> map=new HashMap<>();
+            Map<Integer, List<Integer>> childrens=new HashMap<>();
+            for(int i=1;i<parents.length;i++){
+                map.put(parents[i],map.getOrDefault(parents[i],1)+1);
+                childrens.putIfAbsent(parents[i],new ArrayList<>());
+                childrens.get(parents[i]).add(i);
+            }
+            for (Integer integer : map.keySet()) {
+                for (int i = 0; i < childrens.get(integer).size(); i++) {
+                    map.put(integer,map.get(integer)+map.getOrDefault(childrens.get(integer).get(i),1)-1);
+                }
+            }
+            map.put(0,parents.length);
+            Map<Integer,Integer> res=new HashMap<>();
+            for(int j=0;j<parents.length;j++){
+                if(j==0){
+                    int temp=1;
+                    List<Integer> list = childrens.get(j);
+                    int size= list.size();
+                    for(int k=0;k<size;k++){
+                        temp=temp*map.getOrDefault(list.get(k),1);
+                    }
+                    res.put(temp,1);
+                }else{
+                    int temp=1;
+                    if (childrens.containsKey(j)){
+                        List<Integer> list = childrens.get(j);
+                        int size=list.size();
+                        for(int k=0;k<size;k++){
+                            temp=temp*map.getOrDefault(list.get(k),1);
+                        }
+                    }
+                    int pa=map.get(0);
+                    pa-=map.getOrDefault(j,1);
+                    temp*=pa;
+                    res.put(temp,res.getOrDefault(temp,0)+1);
+                }
+            }
+            int max=0;
+            for (Integer integer : res.keySet()) {
+                max=Math.max(integer,max);
+            }
+            return max==0?0:res.get(max);
+        }
+}
+
+//total_testcases:206
+//total_correct:151
+//input_formatted:[-1,9,3,0,13,2,10,2,18,16,18,5,9,3,4,13,0,12,16]
+//expected_output:2
+//code_output:1

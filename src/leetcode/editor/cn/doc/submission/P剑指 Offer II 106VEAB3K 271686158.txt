@@ -1,0 +1,42 @@
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+        boolean[] visted=new boolean[graph.length];
+        int[] color=new int[graph.length];
+        Deque<Integer> quene=new LinkedList<>();
+        for (int i = 0; i < graph.length; i++) {
+            if (graph[i].length!=0){
+                quene.addFirst(i);
+                color[i]=1;
+                visted[i]=true;
+                break;
+            }
+        }
+        while (!quene.isEmpty()){
+            int node=quene.removeLast();
+            for (int i = 0; i < graph[node].length; i++) {
+                if (visted[graph[node][i]] && color[node]==color[graph[node][i]]){
+                    return false;
+                }
+                if (visted[graph[node][i]]){
+                    continue;
+                }
+                if (color[node]==1){
+                    color[graph[node][i]]=2;
+                    visted[graph[node][i]]=true;
+                }else if (color[node]==2){
+                    color[graph[node][i]]=1;
+                    visted[graph[node][i]]=true;
+
+                }
+                quene.addFirst(graph[node][i]);
+            }
+        }
+        return true;
+    }
+}
+
+//total_testcases:80
+//total_correct:77
+//input_formatted:[[2,4],[2,3,4],[0,1],[1],[0,1],[7],[9],[5],[],[6],[12,14],[],[10],[],[10],[19],[18],[],[16],[15],[23],[23],[],[20,21],[],[],[27],[26],[],[],[34],[33,34],[],[31],[30,31],[38,39],[37,38,39],[36],[35,36],[35,36],[43],[],[],[40],[],[49],[47,48,49],[46,48,49],[46,47,49],[45,46,47,48]]
+//expected_output:false
+//code_output:true
