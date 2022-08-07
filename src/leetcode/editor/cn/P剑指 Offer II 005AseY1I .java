@@ -48,33 +48,31 @@ class P剑指OfferII005AseY1I{
     public static void main(String[] args) {
         Solution solution = new P剑指OfferII005AseY1I().new Solution();
         // TO TEST
+        solution.maxProduct(new String[]{"abcw","baz","foo","bar","fxyz","abcdef"});
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxProduct(String[] words) {
-        int len=words.length;
-        boolean[][] flag=new boolean[len][26];
-        for (int i = 0; i < len; i++) {
-            for (char c : words[i].toCharArray()) {
-                flag[i][c-'a']=true;
+        int res=0;
+        int[][] wordCount=new int[words.length][26];
+        for (int i = 0; i < words.length; i++) {
+            for (int j  = 0; j < words[i].length(); j++) {
+                wordCount[i][words[i].charAt(j)-'a']++;
             }
         }
-
-        int res=0;
-        for (int i = 0; i < len; i++) {
-            for (int j = i+1; j < len; j++) {
+        for (int i = 0; i < words.length-1; i++) {
+            for (int j = i+1; j < words.length; j++) {
                 int k = 0;
                 for (; k < 26; k++) {
-                    if (flag[i][k]&&flag[j][k]){
+                    if (wordCount[i][k]!=0 && wordCount[j][k]!=0){
                         break;
                     }
                 }
                 if (k==26){
-                    int twoenght=words[i].length()*words[j].length();
-                    res=Math.max(res,twoenght);
+                    res=Math.max(res,words[i].length()*words[j].length());
                 }
-            }
 
+            }
         }
         return res;
     }

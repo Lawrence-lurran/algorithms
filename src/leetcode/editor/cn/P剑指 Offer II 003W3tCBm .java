@@ -61,9 +61,32 @@ class P剑指OfferII003W3tCBm{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] countBits(int n) {
+        return method2(n);
+    }
+    public int[] method(int n) {
         int[] res=new int[n+1];
         for (int i = 1; i <= n; i++) {
-            res[i]=res[i>>1]+i&1;
+            res[i]=res[i>>1]+(i&1);
+        }
+        return res;
+    }
+
+    public int[] method1(int n) {
+        int[] res=new int[n+1];
+        for (int i = 1; i <= n; i++) {
+            res[i]=res[i&(i-1)]+1;
+        }
+        return res;
+    }
+
+    public int[] method2(int n) {
+        int[] res=new int[n+1];
+        for (int i = 1; i <= n; i++) {
+            int j=i;
+            while (j>0){
+                j=j&(j-1);
+                res[i]++;
+            }
         }
         return res;
     }

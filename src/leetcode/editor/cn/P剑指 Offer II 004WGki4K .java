@@ -49,15 +49,17 @@ class P剑指OfferII004WGki4K{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int singleNumber(int[] nums) {
-        Arrays.sort(nums);
-        for (int i = 0; i < nums.length; i++) {
-            if (i+2<nums.length && nums[i]==nums[i+2]){
-                i+=2;
-            }else {
-                return nums[i];
+        int[] bits=new int[32];
+        for (int num : nums) {
+            for (int i = 0; i < 32; i++) {
+                bits[i]+=(num>>(31-i))&1;
             }
         }
-        return 0;
+        int res=0;
+        for (int i = 0; i < 32; i++) {
+            res=(res<<1)+bits[i]%3;
+        }
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

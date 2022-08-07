@@ -70,35 +70,7 @@ class P剑指OfferII021SLwz0R{
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode temp=head;
-
-        int len=1;
-        while (temp.next!=null){
-            temp=temp.next;
-            len++;
-        }
-        if (len==1 && n==1){
-            return null;
-        }
-        if (n==len){
-            return head.next;
-        }
-        ListNode temp2=head;
-        for (int i = 0; i < len; i++) {
-            if (i==len-n-1){
-                if (temp2.next.next!=null){
-
-                    temp2.next=temp2.next.next;
-                }else {
-                    temp2.next=null;
-                }
-            }
-            if (temp2.next!=null){
-
-                temp2=temp2.next;
-            }
-        }
-
+        
         return head;
     }
 }
