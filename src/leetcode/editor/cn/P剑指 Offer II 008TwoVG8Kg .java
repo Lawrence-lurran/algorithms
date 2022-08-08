@@ -58,31 +58,23 @@ class P剑指OfferII008TwoVG8Kg{
     public static void main(String[] args) {
         Solution solution = new P剑指OfferII008TwoVG8Kg().new Solution();
         // TO TEST
+        solution.minSubArrayLen(15,new int[]{1,2,3,4,5});
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int minSubArrayLen(int target, int[] nums) {
-        int len=nums.length;
         int left=0;
-        int right=1;
-        int min=Integer.MAX_VALUE;
-        while (right <len && left<right){
-            int sum=0;
-            for (int i = left; i <=right; i++) {
-                sum+=nums[i];
-            }
-            if (sum<target){
-                right++;
-            }else if (sum>=target){
-                if (target<=nums[left] || target<=nums[right]){
-                    return 1;
-                }
-                int resLen=right-left+1;
-                min=Math.min(resLen,min);
+        int sum=0;
+        int res=Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            sum=sum+nums[i];
+            while (sum>=target && left<=i){
+                res=Math.min(res,i-left+1);
+                sum-=nums[left];
                 left++;
             }
         }
-        return min==Integer.MAX_VALUE? 0:min;
+        return res==Integer.MAX_VALUE?0:res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

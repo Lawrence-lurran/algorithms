@@ -57,38 +57,26 @@ class P剑指OfferII007OneFGaJU{
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res=new ArrayList<>();
-        int len=nums.length;
-        if (len<3){
-            return res;
-        }
         Arrays.sort(nums);
-        for (int i = 0; i < len-2; ) {
-
-            int target=0-nums[i];
+        for (int i = 0; i < nums.length-2; i++) {
             int left=i+1;
-            int right=len-1;
-            while (left<right){
-                List<Integer> temp=new ArrayList<>();
-                int sum=nums[left]+nums[right];
-                if (sum==target){
-                    temp.add(nums[left]);
-                    temp.add(nums[right]);
-                    temp.add(nums[i]);
-                    res.add(temp);
-                    int oldLeft=nums[left];
-                    while (nums[left]==oldLeft && left<right){
+            int right=nums.length-1;
+            while (left<right ){
+                if (nums[left]+nums[right]+nums[i]==0){
+                    res.add(Arrays.asList(nums[i],nums[left],nums[right]));
+
+                    while (left<right &&nums[left]==nums[left+1] ){
                         left++;
                     }
                 }
-                if (sum<target){
+                if (nums[left]+nums[right]+nums[i]>0){
+                    right--;
+                }else {
                     left++;
                 }
-                if (nums[left]+nums[right]>target){
-                    right--;
-                }
             }
-            int old=nums[i];
-            while (i<len && nums[i]==old ){
+
+            while (i<nums.length-2&&nums[i]==nums[i+1]){
                 i++;
             }
         }

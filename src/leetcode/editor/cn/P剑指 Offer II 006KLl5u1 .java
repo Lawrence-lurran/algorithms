@@ -62,16 +62,16 @@ class P剑指OfferII006KLl5u1{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        int i=0;
-        int j=numbers.length-1;
-        while (i<j && numbers[i]+numbers[j]!=target){
-            if (numbers[i]+numbers[j]<target){
-                i++;
+        int left=0;
+        int right=numbers.length-1;
+        while (left<right && numbers[left]+numbers[right]!=target){
+            if (numbers[left]+numbers[right]>target){
+                right--;
             }else {
-                j--;
+                left++;
             }
         }
-        return new int[]{i,j};
+        return new int[]{left,right};
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

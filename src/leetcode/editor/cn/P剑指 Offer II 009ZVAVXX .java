@@ -46,22 +46,18 @@ class P剑指OfferII009ZVAVXX{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int numSubarrayProductLessThanK(int[] nums, int k) {
-        long mutil=1;
+        long muti=1;
+        int count=0;
         int left=0;
-        int res=0;
-        int len=nums.length;
-        for (int right = 0; right < len; right++) {
-            mutil*=nums[right];
-            while (left<=right && mutil>=k){
-                mutil/=nums[left];
+        for (int i = 0; i < nums.length; i++) {
+            muti*=nums[i];
+            while (left<=i &&muti>=k ){
+                muti/=nums[left];
                 left++;
-
             }
-            res += right>=left ? right-left+1 : 0;
-
+            count+=left<=i?i-left+1:0;
         }
-
-        return res;
+        return count;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

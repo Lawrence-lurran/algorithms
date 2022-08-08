@@ -45,23 +45,25 @@ class P剑指OfferII010QTMn0o{
     public static void main(String[] args) {
         Solution solution = new P剑指OfferII010QTMn0o().new Solution();
         // TO TEST
-        int[] nums=new int[]{-1,-1,0};
-        solution.subarraySum(nums,0);
+        int[] nums=new int[]{1,1,1};
+        solution.subarraySum(nums,2);
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int subarraySum(int[] nums, int k) {
-        int len=nums.length;
-        Map<Integer,Integer> sumToCount=new HashMap<>();
         int res=0;
         int sum=0;
-        sumToCount.put(0,1);
-        for (int i = 0; i < len; i++) {
+        int left=0;
+        for (int i = 0; i < nums.length; i++) {
             sum+=nums[i];
-            res+=sumToCount.getOrDefault(sum-k,0);
-            sumToCount.put(sum,sumToCount.getOrDefault(sum,0)+1);
+            if (sum==k){
+                res++;
+            }
+            while (left<=i && sum>k){
+                sum-=nums[left];
+                left++;
+            }
         }
-
         return res;
     }
 }
