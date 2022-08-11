@@ -32,6 +32,8 @@
 
 package leetcode.editor.cn;
 
+import edu.princeton.cs.algs4.In;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,18 +47,13 @@ class P剑指OfferII011A1NYOS{
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int findMaxLength(int[] nums) {
-        int len=nums.length;
-        int sum=0;
-        Map<Integer,Integer> sumToIndex=new HashMap<>();
-        sumToIndex.put(0,0);
         int maxLength=0;
-        for (int i = 0; i < len; i++) {
-            sum+= nums[i]==0? -1:nums[i];
-            if (sumToIndex.containsKey(sum)){
-                maxLength=Math.max(maxLength,i-sumToIndex.get(sum)+1);
-            }else {
-                sumToIndex.put(sum,i);
-            }
+        int sum=0;
+        Map<Integer,Integer> sunCount=new HashMap<>();
+        sunCount.put(0,0);
+        for (int i = 0; i < nums.length; i++) {
+            sum+=nums[i]==1?1:-1;
+
         }
         return maxLength;
     }
